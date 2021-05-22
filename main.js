@@ -20,7 +20,20 @@ function funcc3(node) {
     node.value = node.value+"@@"
     return node
 }
+var nodes = [htmlNode_1, htmlNode_2]
+var funcs = [funcc1, funcc2, funcc3]
 
+function setup (nodes, funcs) {
+    nodes = nodes.filter(Boolean)
+    funcs = funcs.filter(Boolean)
+    funcs.forEach(func => {
+        nodes.forEach(node => {
+            node[func.name] = (_) => func(node)
+        });
+    });
+}
 
-htmlNode_1 ? funcc2(funcc1(htmlNode_1)) : 0
-htmlNode_2 ? funcc2(funcc3(htmlNode_2)) : 0
+setup(nodes, funcs);
+
+htmlNode_1?.funcc2().funcc1()
+htmlNode_2?.funcc3().funcc1()
